@@ -1,0 +1,223 @@
+swagger: "2.0"
+info:
+  description: Student class Assignment
+  version: "1.0.0"
+  title: Student Class Assignment Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+#basePath: /studentapi
+
+paths:
+  /students:
+    get:
+      operationId: services.get_student
+      tags:
+        - Student
+      summary: Read the entire list of Student
+      description: Read the list of Student
+      parameters:
+        - name: length
+          in: query
+          type: integer
+          description: Number of Student to get from Student
+          required: false
+        - name: offset
+          in: query
+          type: integer
+          description: Offset from beginning of list where to start gathering people
+          required: false
+      responses:
+        200:
+          description: Successfully read student list operation
+          schema:
+            type: array
+            items:
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                class_id:
+                  type: string
+                  format: uuid
+                created_on:
+                  type: string
+                updated_on:
+                  type: string
+
+
+    post:
+      operationId: students.add_student_record
+      tags:
+        - Student
+      summary: Create a student and add it to the student list
+      description: Create a new student in the student list
+      parameters:
+        - name: student
+          in: body
+          description: student to create
+          required: True
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              name:
+                type: string
+              class_id:
+                type: string
+                format: uuid
+      responses:
+        201:
+          description: Successfully created person in list
+
+  /students/{s_id}:
+    put:
+      operationId: students.update_student_by_id
+      tags:
+        - Student
+      summary: Update a student in the student list
+      description: Update a student in the student list
+      parameters:
+        - name: s_id
+          in: path
+          description: id name of the person to update in the list
+          type: string
+          required: True
+        - name: person
+          in: body
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              class_id:
+                type: string
+                format: uuid
+      responses:
+        200:
+          description: Successfully updated person in people list
+    delete:
+      operationId: students.delete_student
+      tags:
+        - Student
+      summary: Delete a student from the student record
+      description: Delete a student
+      parameters:
+        - name: s_id
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a student from people list
+
+  /Class:
+    get:
+      operationId: services.get_class_record
+      tags:
+        - Class
+      summary: Read the entire list of class
+      description: Read the list of class
+      parameters:
+        - name: length
+          in: query
+          type: integer
+          description: Number of class to get from class
+          required: false
+        - name: offset
+          in: query
+          type: integer
+          description: Offset from beginning of list where to start gathering class
+          required: false
+      responses:
+        200:
+          description: Successfully read class list operation
+          schema:
+            type: array
+            items:
+              properties:
+                student_id:
+                  type: string
+                  format: uuid
+                student_name:
+                  type: string
+                class_id:
+                  type: string
+                  format: uuid
+                created_on:
+                  type: string
+                updated_on:
+                  type: string
+
+    post:
+      operationId: services.add_class_record
+      tags:
+        - Class
+      summary: Create a class and add it to the class list
+      description: Create a new class in the class list
+      parameters:
+        - name: class
+          in: body
+          description: class to create
+          required: True
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              name:
+                type: string
+              class_id:
+                type: string
+                format: uuid
+      responses:
+        201:
+          description: Successfully created person in list
+
+  /class/{c_id}:
+    put:
+      operationId: services.update_class_by_id
+      tags:
+        - Class
+      summary: Update a class in the class list
+      description: Update a class in the class list
+      parameters:
+        - name: c_id
+          in: path
+          description: id name of the class to update in the list
+          type: string
+          required: True
+        - name: person
+          in: body
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              class_id:
+                type: string
+                format: uuid
+      responses:
+        200:
+          description: Successfully updated person in people list
+    delete:
+      operationId: sevices.delete_class
+      tags:
+        - Class
+      summary: Delete a class from the class record
+      description: Delete a class
+      parameters:
+        - name: c_id
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a student from class list
